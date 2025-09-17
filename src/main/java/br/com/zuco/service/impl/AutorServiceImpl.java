@@ -6,8 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.zuco.model.Autor;
+import br.com.zuco.model.InfoAutor;
 import br.com.zuco.repository.AutorRepository;
 import br.com.zuco.service.AutorService;
 
@@ -20,26 +22,27 @@ public class AutorServiceImpl implements AutorService {
 	private Logger _log = LoggerFactory.getLogger(this.getClass().getName());
 
 	@Override
-	public Autor salvar(Autor autor) {
+	@Transactional(readOnly = false)
+	public void salvar(Autor autor) {
 		_log.info("[Executando:" + Thread.currentThread().getStackTrace()[1].getMethodName() + "]");
 
 		autorRepository.save(autor);
 
 		_log.info("[Registro salvo!]");
-		return autor;
 	}
 
 	@Override
-	public Autor atualizar(Autor autor) {
+	@Transactional(readOnly = false)
+	public void atualizar(Autor autor) {
 		_log.info("[Executando:" + Thread.currentThread().getStackTrace()[1].getMethodName() + "]");
 
 		autorRepository.save(autor);
 
 		_log.info("[Registro atualizado!]");
-		return autor;
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public void excluir(Long id) {
 		_log.info("[Executando:" + Thread.currentThread().getStackTrace()[1].getMethodName() + "]");
 		
@@ -50,15 +53,25 @@ public class AutorServiceImpl implements AutorService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Autor> buscarTodos() {
 		List<Autor> listar = autorRepository.findAll();
 		return listar;
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Autor buscarPorId(Long id) {
 		Autor autor = autorRepository.findById(id).orElseThrow();
 		return autor;
 	}
+	
+	@Override
+	@Transactional(readOnly = false)
+    public Autor salvarInfoAutor(InfoAutor infoAutor, Long autorId) {
+        Autor autor = buscarPorId(autorId);
+        autor.setInfoAutor(infoAutor);
+        return autor;
+    }
 
 }

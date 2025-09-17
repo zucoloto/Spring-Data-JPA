@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.zuco.model.Autor;
+import br.com.zuco.model.InfoAutor;
 import br.com.zuco.service.AutorService;
 
 @RestController
@@ -48,5 +49,10 @@ public class AutorController {
 	public Autor buscarPorId(@PathVariable Long id) {
 		return autorService.buscarPorId(id);
 	}
+	
+	@PutMapping("{id}/info")
+    public Autor salvarInfoAutor(@PathVariable Long id, @RequestBody InfoAutor infoAutor) {
+        return autorService.salvarInfoAutor(infoAutor, id);
+    }
 
 }

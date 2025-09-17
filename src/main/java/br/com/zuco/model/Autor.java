@@ -21,6 +21,10 @@ public class Autor implements Serializable {
 	
 	@Column(name = "autor_sobrenome", length = 45, nullable = false)
 	private String sobrenome;
+	
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+    @JoinColumn(name = "info_id")
+    private InfoAutor infoAutor;
 
 	public Long getId() {
 		return id;
@@ -46,6 +50,14 @@ public class Autor implements Serializable {
 		this.sobrenome = sobrenome;
 	}
 
+	public InfoAutor getInfoAutor() {
+		return infoAutor;
+	}
+
+	public void setInfoAutor(InfoAutor infoAutor) {
+		this.infoAutor = infoAutor;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -53,9 +65,12 @@ public class Autor implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (getClass() != obj.getClass()) return false;
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
 		Autor other = (Autor) obj;
 		return Objects.equals(id, other.id);
 	}
