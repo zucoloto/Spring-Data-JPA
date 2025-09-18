@@ -1,4 +1,4 @@
-package br.com.zuco.service;
+ package br.com.zuco.service;
 
 import java.util.List;
 
@@ -7,15 +7,22 @@ import br.com.zuco.model.InfoAutor;
 
 public interface AutorService {
 
-	public void salvar(Autor autor);
+	void salvar(Autor autor);
 	
-	public void atualizar(Autor autor);
+	void atualizar(Autor autor);
 	
-	public void excluir(Long id);
+	void excluir(Long id);
 	
-	public List<Autor> buscarTodos();
+	List<Autor> buscarTodos();
 	
-	public Autor buscarPorId(Long id);
+	Autor buscarPorId(Long id);
 	
-	public Autor salvarInfoAutor(InfoAutor infoAutor, Long autorId);
+	List<Autor> buscarPorCargo(String cargo);
+	
+	List<Autor> buscarTodosPorNomeOuSobrenome(String termo);
+	
+	Long getTotalAutores();
+	
+	Autor salvarInfoAutor(InfoAutor infoAutor, Long autorId);
+
 }

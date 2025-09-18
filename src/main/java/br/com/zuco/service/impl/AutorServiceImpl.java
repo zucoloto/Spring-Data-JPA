@@ -15,7 +15,7 @@ import br.com.zuco.service.AutorService;
 
 @Service
 public class AutorServiceImpl implements AutorService {
-	
+
 	@Autowired
 	private AutorRepository autorRepository;
 	
@@ -49,6 +49,8 @@ public class AutorServiceImpl implements AutorService {
 		Autor autor = autorRepository.findById(id).orElseThrow();
 		autorRepository.delete(autor);
 		
+		//autorRepository.deleteById(id);
+		
 		_log.info("[Registro deletado!]");
 	}
 
@@ -67,10 +69,34 @@ public class AutorServiceImpl implements AutorService {
 	}
 	
 	@Override
+	@Transactional(readOnly = true)
+    public List<Autor> buscarPorCargo(String cargo) {
+		List<Autor> listar = autorRepository.findByCargo("%" + cargo + "%");
+		return listar;
+    }
+	
+	@Override
+	@Transactional(readOnly = true)
+    public List<Autor> buscarTodosPorNomeOuSobrenome(String termo) {
+        return autorRepository.findAllByNomeOrSobrenome("%" + termo + "%");
+    }
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Long getTotalAutores() {
+		Long quantidade = autorRepository.count();
+		return quantidade;
+	}
+	
+	@Override
 	@Transactional(readOnly = false)
     public Autor salvarInfoAutor(InfoAutor infoAutor, Long autorId) {
-        Autor autor = buscarPorId(autorId);
+		_log.info("[Executando:" + Thread.currentThread().getStackTrace()[1].getMethodName() + "]");
+		
+		Autor autor = buscarPorId(autorId);
         autor.setInfoAutor(infoAutor);
+        
+        _log.info("[Registro salvo!]");
         return autor;
     }
 
