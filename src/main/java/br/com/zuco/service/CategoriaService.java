@@ -19,4 +19,21 @@ public class CategoriaService {
     public List<Categoria> salvar(List<Categoria> categorias) {
         return categoriaRepository.saveAll(categorias);
     }
+	
+	public Categoria buscarPorTitulo(String titulo) {
+        return categoriaRepository.findByCategoriaTitulo(titulo).orElseGet(Categoria::new);
+    }
+	
+	public List<Categoria> buscarPorInicioTitulo(String titulo) {
+        return categoriaRepository.findByCategoriaTituloStartsWith(titulo);
+    }
+
+    public List<Categoria> buscarPorTitulos(List<String> titulos) {
+        return categoriaRepository.findByCategoriaTituloIn(titulos);
+    }
+
+    public List<Categoria> buscarTodosOrdemPorTituloAsc() {
+        return categoriaRepository.findByOrderByCategoriaTituloAsc();
+    }
+	
 }
