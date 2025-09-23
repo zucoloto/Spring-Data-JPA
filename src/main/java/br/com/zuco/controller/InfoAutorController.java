@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.zuco.model.InfoAutor;
+import br.com.zuco.entity.InfoAutor;
 import br.com.zuco.service.InfoAutorService;
 
 @RestController
@@ -37,5 +37,5 @@ public class InfoAutorController {
     public InfoAutor buscarPorBio(@PathVariable String bio) {
         return infoAutorService.buscarPorBio(bio);
     }
-	
+    
 }

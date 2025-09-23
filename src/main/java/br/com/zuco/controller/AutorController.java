@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.zuco.model.Autor;
-import br.com.zuco.model.InfoAutor;
+import br.com.zuco.entity.Autor;
+import br.com.zuco.entity.InfoAutor;
 import br.com.zuco.service.AutorService;
 
 @RestController
@@ -52,9 +52,9 @@ public class AutorController {
 	}
 	
 	@GetMapping("info")
-    public List<Autor> buscarPorCargo(@RequestParam String cargo) {
-        return autorService.buscarPorCargo(cargo);
-    }
+	public List<Autor> buscarPorCargo(@RequestParam String cargo) {
+		return autorService.buscarPorCargo(cargo);
+	}
 	
 	@GetMapping("nomeOuSobrenome")
     public List<Autor> buscarTodosPorNomeOuSobrenome(@RequestParam String termo) {
@@ -63,7 +63,7 @@ public class AutorController {
 	
 	@GetMapping("total")
     public Long getTotalDeAutores() {
-        return autorService.getTotalAutores();
+        return autorService.getTotalElementos();
     }
 	
 	@PutMapping("{id}/info")

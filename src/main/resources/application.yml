@@ -1,3 +1,4 @@
+# SPRING CONFIG
 spring:
   application:
     name: Spring-Data-JPA
@@ -13,17 +14,24 @@ spring:
     open-in-view: false
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: update    # none, validate, update, create-drop
     properties:
       hibernate:
 
+  output:
+    ansi:
+      enabled: ALWAYS
+
 logging:
+  pattern:
+    console: '%clr(%d{dd-MM-yyyy HH:mm:ss}){faint} %clr(%5p) %clr([%t]){faint} %clr(%-40.40logger){cyan} %clr(:){yellow} %m%n'
   file:
     #path: /var/tmp
-    name: logging_gvr.log
+    name: logging_spring-data-jpa.log
 
-  level: # Log Level: ERROR, WARN, INFO, DEBUG, or TRACE
+  level: # Log Level: ERROR, WARN, INFO, DEBUG, TRACE 
+    #root: "WARN" 
     root: "INFO"
     '[org.hibernate]': "DEBUG"
     #'[org.hibernate.SQL]': "DEBUG"
-    '[br.com.gvr]': "DEBUG"
+    '[br.com.zuco]': "DEBUG"
