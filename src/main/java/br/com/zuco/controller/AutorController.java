@@ -22,7 +22,7 @@ import br.com.zuco.service.AutorService;
 public class AutorController {
 
 	@Autowired
-	AutorService autorService;
+	private AutorService autorService;
 	
 	@PostMapping
 	public Autor salvar(@RequestBody Autor autor) {
